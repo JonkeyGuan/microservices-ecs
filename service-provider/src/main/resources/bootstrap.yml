@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: service-provider
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER_URL:http://config-server:8888/}
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

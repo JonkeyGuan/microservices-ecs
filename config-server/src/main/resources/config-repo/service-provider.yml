@@ -1,0 +1,5 @@
+spring:
+  profiles: local, docker
+    
+server:
+  port: 8181

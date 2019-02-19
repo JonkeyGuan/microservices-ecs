@@ -1,0 +1,23 @@
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+            
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+
+---
+spring:
+  profiles: local, docker
+    
+server:
+  port: 8282
+

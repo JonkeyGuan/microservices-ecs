@@ -1,0 +1,60 @@
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 10
+  client:
+    fetchRegistry: true
+---
+spring:
+  profiles: local
+    
+server:
+  port: 8761
+  
+eureka:
+  instance:
+    hostname: service-registry1
+  client:
+    serviceUrl:
+      defaultZone: http://service-registry2:8762/eureka/
+
+---
+spring:
+  profiles: local1
+    
+server:
+  port: 8762
+  
+eureka:
+  instance:
+    hostname: service-registry2
+  client:
+    serviceUrl:
+      defaultZone: http://service-registry1:8761/eureka/
+---
+spring:
+  profiles: docker
+    
+server:
+  port: 8761
+  
+eureka:
+  instance:
+    hostname: service-registry1
+  client:
+    serviceUrl:
+      defaultZone: http://service-registry2:8761/eureka/
+
+---
+spring:
+  profiles: docker1
+    
+server:
+  port: 8761
+  
+eureka:
+  instance:
+    hostname: service-registry2
+  client:
+    serviceUrl:
+      defaultZone: http://service-registry1:8761/eureka/
+      

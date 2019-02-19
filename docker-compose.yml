@@ -1,0 +1,104 @@
+version: '3.3'
+services:
+  config-server:
+    hostname: config-server
+    build: ./config-server
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_PROFILES_ACTIVE=native
+    networks:
+      my-network:
+        aliases:
+          - config-server
+          
+  service-registry:
+    hostname: service-registry1
+    build: ./service-registry
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - config-server
+    entrypoint: /bin/sh
+    command: >
+      -c "
+      while ! (nc -z config-server 8888); do sleep 5; echo 'Waiting for config-server to start-up...'; done;
+      java -jar /app.jar
+      "
+    networks:
+      my-network:
+        aliases:
+          - service-registry1
+          
+  service-registry2:
+    hostname: service-registry2
+    image: microservicesecs_service-registry
+    ports:
+      - "8762:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker1
+    depends_on:
+      - config-server
+    entrypoint: /bin/sh
+    command: >
+      -c "
+      while ! (nc -z config-server 8888); do sleep 5; echo 'Waiting for config-server to start-up...'; done;
+      java -jar /app.jar
+      "
+    networks:
+      my-network:
+        aliases:
+          - service-registry2
+          
+  service-provider:
+    hostname: service-provider
+    build: ./service-provider
+    ports:
+      - "8181:8181"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - config-server
+      - service-registry
+      - service-registry2
+    entrypoint: /bin/sh
+    command: >
+      -c "
+      while ! (nc -z config-server 8888 && nc -z service-registry1 8761 && nc -z service-registry2 8761); do sleep 5; echo 'Waiting for config-server, service-registry1, service-registry2 to start-up...'; done;
+      java -jar /app.jar
+      "
+    networks:
+      my-network:
+        aliases:
+          - service-provider
+          
+  service-consumer:
+    hostname: service-consumer
+    build: ./service-consumer
+    ports:
+      - "8282:8282"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - config-server
+      - service-registry
+      - service-registry2
+      - service-provider
+    entrypoint: /bin/sh
+    command: >
+      -c "
+      while ! (nc -z config-server 8888 && nc -z service-registry1 8761 && nc -z service-registry2 8761 && nc -z service-provider 8181); do sleep 5; echo 'Waiting for config-server, service-registry1, service-registry2, service-provider to start-up...'; done;
+      java -jar /app.jar
+      "
+    networks:
+      my-network:
+        aliases:
+          - service-consumer
+          
+networks:
+  my-network:
+    driver: bridge
+      
+      

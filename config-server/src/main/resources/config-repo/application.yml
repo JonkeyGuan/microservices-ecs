@@ -1,0 +1,7 @@
+spring:
+  profiles: local, docker
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://service-registry1:8761/eureka/,http://service-registry2:8762/eureka/
