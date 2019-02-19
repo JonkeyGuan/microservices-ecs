@@ -16,7 +16,7 @@ spring:
 
 ---
 spring:
-  profiles: docker
+  profiles: docker, ecs
   cloud:
     config:
       server:

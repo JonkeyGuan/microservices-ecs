@@ -4,4 +4,4 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://service-registry1:8761/eureka/,http://service-registry2:8762/eureka/
+      defaultZone: http://service-registry1-2082862406.ap-southeast-1.elb.amazonaws.com:8761/eureka/,http://service-registry2-2082862406.ap-southeast-1.elb.amazonaws.com:8762/eureka/

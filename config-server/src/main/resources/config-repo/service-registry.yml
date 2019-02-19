@@ -58,3 +58,31 @@ eureka:
     serviceUrl:
       defaultZone: http://service-registry1:8761/eureka/
       
+---
+spring:
+  profiles: ecs
+    
+server:
+  port: 8761
+  
+eureka:
+  instance:
+    hostname: service-registry1
+  client:
+    serviceUrl:
+      defaultZone: http://service-registry2-2082862406.ap-southeast-1.elb.amazonaws.com:8762/eureka/
+
+---
+spring:
+  profiles: ecs1
+    
+server:
+  port: 8761
+  
+eureka:
+  instance:
+    hostname: service-registry2
+  client:
+    serviceUrl:
+      defaultZone: http://service-registry1-2082862406.ap-southeast-1.elb.amazonaws.com:8761/eureka/
+      

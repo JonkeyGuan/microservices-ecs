@@ -16,7 +16,7 @@ ribbon:
 
 ---
 spring:
-  profiles: local, docker
+  profiles: local, docker, ecs
     
 server:
   port: 8282
