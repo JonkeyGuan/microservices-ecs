@@ -20,5 +20,7 @@ spring:
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/config-repo/
+        git:
+          uri: https://github.com/JonkeyGuan/microservices-ecs
+          search-paths: config-server/src/main/resources/config-repo
+              
