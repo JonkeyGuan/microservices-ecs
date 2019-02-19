@@ -23,18 +23,4 @@ public class ServiceConsumerController {
 		return ServiceProvider.service(delayInSec);
 	}
 
-//	@GetMapping({ "/api/service", "/api/service/{delayInSec}" })
-//	public String service(@PathVariable Optional<Integer> delayInSec) {
-//		log.info("service provider {}", delayInSec.isPresent() ? delayInSec.get() : "");
-//
-//		if (delayInSec.isPresent() && delayInSec.get() > 0) {
-//			try {
-//				TimeUnit.SECONDS.sleep(delayInSec.get());
-//			} catch (InterruptedException e) {
-//				log.error("service provider error {}", e);
-//				return "error happend: " + e.getMessage();
-//			}
-//		}
-//		return "Hello AWS";
-//	}
 }
