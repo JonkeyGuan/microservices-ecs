@@ -84,5 +84,5 @@ eureka:
     hostname: service-registry2
   client:
     serviceUrl:
-      defaultZone: http://service-registry1-2082862406.ap-southeast-1.elb.amazonaws.com:8761/eureka/
+      defaultZone: http://service-registry1-279569743.ap-southeast-1.elb.amazonaws.com:8761/eureka/
       
