@@ -16,21 +16,9 @@ ribbon:
 
 ---
 spring:
-  profiles: local, docker
+  profiles: local, docker, ecs
     
 server:
   port: 8282
   
-service-provider:
-  url: http://localhost:8181
- 
----
-spring:
-  profiles: ecs
-    
-server:
-  port: 8282
-  
-service-provider:
-  url: http://service-provider-923530181.ap-southeast-1.elb.amazonaws.com:8181
  
