@@ -14,10 +14,6 @@ ribbon:
   ReadTimeout: 30000
   ConnectTimeout: 30000
 
-eureka:
-  instance:
-    instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
-    
 ---
 spring:
   profiles: local, docker, ecs
